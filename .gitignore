@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+jarvisenv/
+venv/
+.venv/
+env/
+
+# Secrets and local settings
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Logs, local outputs and caches
+*.log
+*.log.*
+jarvis_screenshot_*.png
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

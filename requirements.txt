@@ -1,0 +1,7 @@
+SpeechRecognition
+PyAudio
+Pillow
+ollama
+pypdf
+python-docx
+pyttsx3
