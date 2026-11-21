@@ -26,3 +26,16 @@ jarvis_screenshot_*.png
 Thumbs.db
 .vscode/
 .idea/
+# Python
+jarvisenv/
+__pycache__/
+*.pyc
+.env
+.env.*
+
+# React / Node
+frontend/node_modules/
+frontend/dist/
+
+# IDE
+.vscode/
