@@ -1,5 +1,6 @@
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from brain import ask_ai, get_last_error
@@ -9,6 +10,14 @@ app = FastAPI(
     version="0.2.0"
 )
 
+# Allow the React frontend to communicate with Python
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=False,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type"],
+)
 
 class ChatRequest(BaseModel):
     message: str = Field(min_length=1, max_length=2000)
@@ -16,10 +25,7 @@ class ChatRequest(BaseModel):
 
 @app.get("/")
 def home():
-    return {
-        "assistant": "JARVIS",
-        "status": "online"
-    }
+    return {"assistant": "JARVIS", "status": "online"}
 
 
 @app.get("/health")
@@ -39,8 +45,8 @@ def chat(request: ChatRequest):
 
     try:
         reply = ask_ai(message)
-
         error = get_last_error()
+
         if error:
             raise HTTPException(
                 status_code=503,
