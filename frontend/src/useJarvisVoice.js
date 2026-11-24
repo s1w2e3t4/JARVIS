@@ -1,7 +1,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export function useJarvisVoice(onCommand) {
+export function useJarvisVoice(onCommand, muted = false) {
   const [status, setStatus] = useState("off");
   const [transcript, setTranscript] = useState("");
   const [error, setError] = useState("");
@@ -16,6 +16,8 @@ export function useJarvisVoice(onCommand) {
   const statusRef = useRef("off");
 
   callbackRef.current = onCommand;
+  const mutedRef = useRef(muted);
+  mutedRef.current = muted;
 
   const updateStatus = useCallback((value) => {
     statusRef.current = value;
@@ -157,7 +159,7 @@ export function useJarvisVoice(onCommand) {
 
   function speakReply(text) {
     return new Promise((resolve) => {
-      if (!("speechSynthesis" in window)) {
+      if (mutedRef.current || !("speechSynthesis" in window)) {
         resolve();
         return;
       }

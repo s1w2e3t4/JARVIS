@@ -1,17 +1,1 @@
-
-:root {
-  font-family: Inter, Arial, sans-serif;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-}
-
-body {
-  margin: 0;
-  min-width: 320px;
-}
-
-button,
-input {
-  font: inherit;
-}
+*{box-sizing:border-box}html,body,#root{margin:0;min-height:100%;width:100%}body{background:#04060c;color:#dce7f8;font-family:Inter,system-ui,sans-serif}button,input{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.45}button:focus-visible,input:focus-visible{outline:2px solid #8caeff;outline-offset:4px}
