@@ -5,3 +5,8 @@ ollama
 pypdf
 python-docx
 pyttsx3
+
+argon2-cffi
+email-validator
+fastapi
+uvicorn
