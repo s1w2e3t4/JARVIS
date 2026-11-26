@@ -2,6 +2,7 @@ import {useState,useCallback,useRef,useEffect} from 'react';
 import {Settings,X,Send} from 'lucide-react';
 import {useJarvisVoice} from './useJarvisVoice';
 import NeuralCore from './NeuralCore';
+import AccountPanel from './AccountPanel';
 import './App.css';
 const API_URL='http://127.0.0.1:8000';
 export default function App(){
@@ -17,7 +18,7 @@ export default function App(){
  <section className="core-stage"><button className="core-trigger" aria-label={status==='off'?'Activate hands-free voice':'JARVIS neural core'} onClick={()=>{if(status==='off')start();}}><NeuralCore mode={mode}/></button><span className="sr-only" role="status">{status}</span>{(error||problem)&&<div className="context-help" role="alert">{problem||error}<button onClick={()=>setPanel('help')}>Help</button></div>}</section>
  {panel&&<aside className="settings-panel" aria-label={panel}><div className="panel-heading"><h2>{panel==='settings'?'Settings':panel==='chat'?'Conversation':panel==='account'?'Account':'Help'}</h2><button className="icon-button" aria-label="Close" onClick={()=>setPanel('')}><X size={19}/></button></div>
  {panel==='settings'&&<div className="menu"><button onClick={()=>setPanel('account')}>Account <span>›</span></button><button onClick={()=>status==='off'?start():stop()}>Hands-free voice <span>{status==='off'?'Off':'On'}</span></button><button onClick={()=>setMuted(v=>!v)}>Voice output <span>{muted?'Muted':'On'}</span></button><button onClick={()=>setPanel('chat')}>Conversation & text input <span>›</span></button><button onClick={()=>setPanel('help')}>Help & commands <span>›</span></button></div>}
- {panel==='account'&&<div className="menu"><p>Guest mode. Secure accounts are not connected yet.</p><button disabled>Login / Sign up — coming later</button><button disabled>Logout — not signed in</button><button onClick={()=>setPanel('settings')}>Back</button></div>}
+ {panel==='account'&&<AccountPanel onBack={()=>setPanel('settings')}/>}
  {panel==='help'&&<div className="menu"><p>Click the neural sphere once to activate voice and allow microphone access. Say “Hey Jarvis”, then speak naturally. Say “go to sleep” to return to standby.</p><p>Voice recognition works best in a supported browser such as Chrome. You can turn off the microphone in Settings.</p><button onClick={()=>setPanel('settings')}>Back</button></div>}
  {panel==='chat'&&<><div className="chat-history">{messages.length===0&&<p>No messages yet.</p>}{messages.map((m,i)=><div className={`chat-message ${m.role}`} key={i}><small>{m.role==='user'?'You':'JARVIS'}</small><p>{m.content}</p></div>)}<div ref={end}/></div><form className="chat-form" onSubmit={submit}><input aria-label="Message" value={input} onChange={e=>setInput(e.target.value)} placeholder="Message JARVIS"/><button aria-label="Send" disabled={loading||!input.trim()}><Send size={18}/></button></form><button className="clear-chat" disabled={loading} onClick={()=>setMessages([])}>Clear visible history</button></>}
  </aside>}</main>;
