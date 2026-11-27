@@ -4,7 +4,7 @@ import {
 } from 'react';
 import { Settings, X, Send } from 'lucide-react';
 import { useJarvisVoice } from './useJarvisVoice';
-import NeuralCore from './NeuralCore';
+import CosmicHorizon from "./CosmicHorizon";
 import AuthGate from './AuthGate';
 import './App.css';
 
@@ -91,11 +91,10 @@ function JarvisAssistant({ email, logout }) {
     useJarvisVoice(send, muted);
 
   const mode =
-    loading ? 'thinking' :
-    status === 'active' ? 'listening' :
-    status === 'speaking' ? 'speaking' :
-    status === 'thinking' ? 'thinking' :
-    'idle';
+  status === 'speaking' ? 'speaking' :
+  loading || status === 'thinking' ? 'thinking' :
+  status === 'active' ? 'listening' :
+  'idle';
 
   useEffect(() => {
     end.current?.scrollIntoView({
@@ -177,7 +176,7 @@ function JarvisAssistant({ email, logout }) {
             if (status === 'off') start();
           }}
         >
-          <NeuralCore mode={mode} />
+          <CosmicHorizon mode={mode} />
         </button>
 
         <span className="sr-only" role="status">
